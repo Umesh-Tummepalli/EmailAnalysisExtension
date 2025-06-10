@@ -14,7 +14,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           target: { tabId: activeTab.id },
           files: ['content.js'],
         });
-
         // Send message to content.js to extract
         chrome.tabs.sendMessage(activeTab.id, {
           from: "background",

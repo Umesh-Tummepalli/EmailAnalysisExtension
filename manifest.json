@@ -13,9 +13,21 @@
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
-      "128": "icons/icon128.png"    
+      "128": "icons/icon128.png"
     }
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
   "permissions": [
     "activeTab",
     "scripting",
@@ -23,14 +35,6 @@
   ],
   "host_permissions": [
     "https://mail.google.com/*"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["https://mail.google.com/*"],
-      "js": ["content.js"],
-      "run_at": "document_idle",
-      "all_frames": true
-    }
   ],
   "background": {
     "service_worker": "background.js",
