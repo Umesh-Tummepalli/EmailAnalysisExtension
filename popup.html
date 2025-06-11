@@ -1,253 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Email Analysis</title>
-    <style>
-        body {
-            width: 500px;
-            min-height: 400px;
-            padding: 15px;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .header h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .status {
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .status.loading {
-            background-color: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .status.success {
-            background-color: #e8f5e8;
-            color: #2e7d32;
-        }
-
-        .status.error {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-
-        .status.info {
-            background-color: #fff3e0;
-            color: #f57c00;
-        }
-
-        .summary {
-            background-color: #f0f0f0;
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            font-size: 11px;
-            color: #666;
-        }
-
-        #output {
-            width: 100%;
-            height: 150px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            line-height: 1.4;
-            resize: vertical;
-            box-sizing: border-box;
-        }
-
-        #output::placeholder {
-            color: #999;
-            font-style: italic;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 8px;
-            margin: 10px 0;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #4285f4;
-            color: white;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background-color: #3367d6;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background-color: #5a6268;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover:not(:disabled) {
-            background-color: #c82333;
-        }
-
-        .btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .content-section {
-            margin-bottom: 15px;
-        }
-
-        .content-section h4 {
-            margin: 0 0 8px 0;
-            font-size: 13px;
-            color: #333;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 4px;
-        }
-
-        .url-list, .image-list {
-            max-height: 120px;
-            overflow-y: auto;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            background-color: white;
-        }
-
-        .url-item, .image-item {
-            padding: 8px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 11px;
-        }
-
-        .url-item:last-child, .image-item:last-child {
-            border-bottom: none;
-        }
-
-        .url-info a {
-            color: #1a73e8;
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .url-info a:hover {
-            text-decoration: underline;
-        }
-
-        .url-meta {
-            margin-top: 4px;
-            color: #666;
-            font-size: 10px;
-        }
-
-        .url-type {
-            background-color: #e8f0fe;
-            color: #1565c0;
-            padding: 2px 6px;
-            border-radius: 2px;
-            margin-right: 6px;
-        }
-
-        .url-text {
-            font-style: italic;
-        }
-
-        .image-info {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-
-        .image-preview {
-            flex-shrink: 0;
-        }
-
-        .image-preview img {
-            border: 1px solid #ddd;
-            border-radius: 2px;
-        }
-
-        .image-details {
-            flex: 1;
-            font-size: 10px;
-        }
-
-        .image-details div {
-            margin-bottom: 2px;
-        }
-
-        .image-details a {
-            color: #1a73e8;
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .image-details a:hover {
-            text-decoration: underline;
-        }
-
-        .scrollable {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
+    <link rel="stylesheet" href="popup.css">
+  <body>
+    <!-- Main page -->
+    <section>
+      <div class="header">
         <h2>📧 Email Analysis</h2>
-    </div>
-    <div id="summary" class="summary" style="display: none;"></div>
+      </div>
+      <div id="summary" class="summary" style="display: none"></div>
 
-    <div class="content-section">
-        <textarea id="output" placeholder="No email content loaded yet... 
-You can also manually edit or add content here if the extraction missed something."></textarea>
-    </div>
+      <div class="content-section">
+        <textarea
+          id="output"
+          placeholder="No email content loaded yet... 
+            You can also manually edit or add content here if the extraction missed something."
+        ></textarea>
+      </div>
 
-    <div class="button-container">
+      <div class="button-container">
         <button id="refreshBtn" class="btn btn-primary">Fetch Email</button>
-    </div>
-    <div class="button-container">
+      </div>
+      <div class="button-container">
         <button id="analyseBtn" class="btn btn-primary">Analyse</button>
-    </div>
-    <div id="urlsContainer" class="content-section scrollable"></div>
-    <div id="imagesContainer" class="content-section scrollable"></div>
+      </div>
+      <div id="urlsContainer" class="content-section scrollable"></div>
+      <div id="imagesContainer" class="content-section scrollable"></div>
+    </section>
+    <!-- Result Page -->
+     <section id="resultContainer">
+        <div class="container">
+        <div class="header">
+            <h1>Email Analysis</h1>
+        </div>
 
+        <div class="risk-card" id="riskCard">
+            <div class="risk-score">
+                <div class="score-circle" id="scoreCircle">30</div>
+                <div class="score-text">
+                    <h2 id="riskCategory">LOW RISK - Potentially Suspicious</h2>
+                    <p id="confidence">Confidence: 60%</p>
+                </div>
+            </div>
+
+            <div class="recommendation" id="recommendation">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 9V11M12 15H12.01M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p id="recommendationText">🔍 Exercise caution. Review the email carefully before taking any action.</p>
+            </div>
+
+            <div class="details">
+                <div class="detail-item">
+                    <h3>Sender</h3>
+                    <p id="sender">Unknown</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Subject</h3>
+                    <p id="subject">Unknown</p>
+                </div>
+                <div class="detail-item">
+                    <h3>URLs Detected</h3>
+                    <p id="urlCount">0</p>
+                </div>
+                <div class="detail-item">
+                    <h3>Brand Mentions</h3>
+                    <p id="brandMentions">3</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>Features Analyzed</h3>
+            <div class="features-grid" id="featuresGrid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+     </section>
     <script src="popup.js"></script>
-</body>
+  </body>
 </html>

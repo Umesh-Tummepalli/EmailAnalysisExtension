@@ -1,4 +1,228 @@
-body{
-    width: 500px;
-    height: 400px;
+body {
+  width: 500px;
+  min-height: 400px;
+  padding: 15px;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+.header h2, .header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Summary */
+.summary {
+  background-color: #eef2f7;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+/* Output Textarea */
+#output {
+  width: 100%;
+  height: 150px;
+  background-color: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+#output::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+  justify-content: center;
+}
+.btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.btn-primary {
+  background-color: #6366f1;
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #4f46e5;
+}
+.btn:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Result Container remains unchanged for max-height */
+#resultContainer {
+  max-height: 0px;
+  overflow: hidden;
+  transition: 0.5s all;
+}
+
+/* Containers and sections */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Risk Card & Score */
+.risk-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  position: relative;
+}
+.risk-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background-color: var(--warning);
+}
+.risk-card.malicious::after { background: var(--danger); }
+.risk-card.safe::after { background: var(--safe); }
+
+.risk-score {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.score-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: conic-gradient(var(--warning) 0% 30%, #e2e8f0 30% 100%);
+  font-size: 18px;
+  font-weight: bold;
+}
+.risk-card.malicious .score-circle {
+  background: conic-gradient(var(--danger) 0% 60%, #e2e8f0 60% 100%);
+}
+.risk-card.safe .score-circle {
+  background: conic-gradient(var(--safe) 0% 10%, #e2e8f0 10% 100%);
+}
+
+.score-text h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #1f2937;
+}
+.score-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* Recommendation Section */
+.recommendation {
+  display: flex;
+  align-items: flex-start;
+  background-color: #fffbea;
+  border-left: 4px solid #facc15;
+  padding: 12px;
+  border-radius: 8px;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.recommendation p {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Detail Items */
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.detail-item {
+  background-color: #f1f5f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+.detail-item h3 {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #64748b;
+}
+.detail-item p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Features Section */
+.features {
+  margin-top: auto;
+}
+.features h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #475569;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.feature-item {
+  background-color: #e2e8f0;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 12px;
+}
+.feature-item.detected {
+  background-color: #fee2e2;
+  color: var(--danger);
+  font-weight: bold;
+}
+
+/* Root Variables */
+:root {
+  --primary: #6366f1;
+  --primary-light: #a5b4fc;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --safe: #10b981;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
 }
